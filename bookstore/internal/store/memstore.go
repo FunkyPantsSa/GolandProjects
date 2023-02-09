@@ -3,17 +3,18 @@
 package store
 
 import (
-	factory "bookstore/internal/store/factory"
+	"bookstore/store"
+	"bookstore/store/factory"
 	"sync"
 )
 
 func init() {
 	factory.Register("mem", &MemStore{
-		books: make(map[string]*Book),
+		books: make(map[string]*store.Book),
 	})
 }
 
 type MemStore struct {
 	sync.RWMutex
-	books map[string]*Book
+	books map[string]*store.Book
 }
