@@ -3,7 +3,7 @@
 package factory
 
 import (
-	"bookstore/store"
+	"bookstore/internal/store"
 	"fmt"
 	"sync"
 )

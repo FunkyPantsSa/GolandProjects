@@ -1,12 +1,14 @@
 package server
 
 import (
-	"book/server/middleware"
-	"bookstore/store"
+	"bookstore/internal/store"
+	"bookstore/server/middleware"
 	"encoding/json"
 	"log"
 	"mime"
+	"mux"
 	"net/http"
+	"time"
 )
 
 // server/server.go
@@ -102,4 +104,22 @@ func Validating(next http.Handler) http.Handler {
 		}
 		next.ServeHTTP(w, req)
 	})
+}
+
+// server/server.go
+
+func (bs *BookStoreServer) ListenAndServe() (<-chan error, error) {
+	var err error
+	errChan := make(chan error)
+	go func() {
+		err = bs.srv.ListenAndServe()
+		errChan <- err
+	}()
+
+	select {
+	case err = <-errChan:
+		return nil, err
+	case <-time.After(time.Second):
+		return errChan, nil
+	}
 }

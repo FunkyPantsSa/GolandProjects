@@ -2,8 +2,8 @@ package main
 
 import (
 	_ "bookstore/internal/store"
+	"bookstore/internal/store/factory"
 	"bookstore/server"
-	"bookstore/store/factory"
 	"context"
 	"log"
 	"os"
