@@ -15,16 +15,16 @@ import (
 // server/server.go
 
 type BookStoreServer struct {
-	s   store.Store
-	srv *http.Server
+	S   store.Store
+	Srv *http.Server
 }
 
 // server/server.go
 
 func NewBookStoreServer(addr string, s store.Store) *BookStoreServer {
 	srv := &BookStoreServer{
-		s: s,
-		srv: &http.Server{
+		S: s,
+		Srv: &http.Server{
 			Addr: addr,
 		},
 	}
@@ -33,11 +33,10 @@ func NewBookStoreServer(addr string, s store.Store) *BookStoreServer {
 	router.HandleFunc("/book", srv.createBookHandler).Methods("POST")
 	router.HandleFunc("/book/{id}", srv.updateBookHandler).Methods("POST")
 	router.HandleFunc("/book/{id}", srv.getBookHandler).Methods("GET")
-	rout
-	er.HandleFunc("/book", srv.getAllBooksHandler).Methods("GET")
+	router.HandleFunc("/book", srv.getAllBooksHandler).Methods("GET")
 	router.HandleFunc("/book/{id}", srv.delBookHandler).Methods("DELETE")
 
-	srv.srv.Handler = middleware.Logging(middleware.Validating(router))
+	srv.Srv.Handler = middleware.Logging(middleware.Validating(router))
 	return srv
 }
 
@@ -51,7 +50,7 @@ func (bs *BookStoreServer) createBookHandler(w http.ResponseWriter, req *http.Re
 		return
 	}
 
-	if err := bs.s.Create(&book); err != nil {
+	if err := bs.S.Create(&book); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -64,7 +63,7 @@ func (bs *BookStoreServer) getBookHandler(w http.ResponseWriter, req *http.Reque
 		return
 	}
 
-	book, err := bs.s.Get(id)
+	book, err := bs.S.Get(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -114,7 +113,7 @@ func (bs *BookStoreServer) ListenAndServe() (<-chan error, error) {
 	var err error
 	errChan := make(chan error)
 	go func() {
-		err = bs.srv.ListenAndServe()
+		err = bs.Srv.ListenAndServe()
 		errChan <- err
 	}()
 
@@ -124,4 +123,16 @@ func (bs *BookStoreServer) ListenAndServe() (<-chan error, error) {
 	case <-time.After(time.Second):
 		return errChan, nil
 	}
+}
+
+func (bs *BookStoreServer) updateBookHandler(writer http.ResponseWriter, request *http.Request) {
+
+}
+
+func (bs *BookStoreServer) getAllBooksHandler(writer http.ResponseWriter, request *http.Request) {
+
+}
+
+func (bs *BookStoreServer) delBookHandler(writer http.ResponseWriter, request *http.Request) {
+
 }

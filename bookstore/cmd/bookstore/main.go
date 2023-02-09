@@ -38,7 +38,7 @@ func main() {
 		log.Println("bookstore program is exiting...")
 		ctx, cf := context.WithTimeout(context.Background(), time.Second)
 		defer cf()
-		err = srv.Shutdown(ctx) // 优雅关闭http服务实例
+		err = srv.Srv.Shutdown(ctx) // 优雅关闭http服务实例
 	}
 
 	if err != nil {
