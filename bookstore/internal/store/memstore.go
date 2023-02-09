@@ -5,6 +5,7 @@ package store
 import (
 	"bookstore/store"
 	"bookstore/store/factory"
+	"errors"
 	"sync"
 )
 
@@ -37,9 +38,11 @@ func (m MemStore) Get(s string) (store.Book, error) {
 func (m MemStore) GetAll() ([]store.Book, error) {
 	//TODO implement me
 	panic("implement me")
+
 }
 
 func (m MemStore) Delete(s string) error {
 	//TODO implement me
-	panic("implement me")
+	//panic("implement me")
+	return errors.New("1")
 }
