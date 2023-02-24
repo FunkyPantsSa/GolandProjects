@@ -1,5 +1,8 @@
 package main
 
-func mian() {
-	panic("123123")
+import "fmt"
+
+func main() {
+	fmt.Println("sjsja")
+	println("123123")
 }
