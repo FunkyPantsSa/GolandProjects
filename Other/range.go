@@ -11,9 +11,11 @@ func range1() {
 	{
 		i, v := 0, 0
 		for i, v = range m {
+			fmt.Println(i, v)
 			go func() {
 				time.Sleep(time.Second * 3)
 				fmt.Println(i, v)
+
 			}()
 		}
 	}
@@ -35,14 +37,14 @@ func range2() {
 }
 
 func main() {
-	range2()
+	//range2()
 	//4 5
 	//4 5
 	//4 5
 	//4 5
 	//4 5
 
-	//range1()
+	range1()
 	//2 3
 	//0 1
 	//1 2
