@@ -11,26 +11,29 @@ func main() {
 	for {
 		var a string
 		a = getIp()
-		fmt.Println(getIp())
+		//fmt.Println(getIp())
 		if a == "" {
 			restart()
 			//test
 			//fmt.Println("reatrt")
 		}
-		time.Sleep(5000 * time.Millisecond)
-		fmt.Println("ok: ", a)
+		fmt.Println(time.Now())
+		fmt.Println("已完成检测", a)
+		time.Sleep(500000 * time.Millisecond)
+
 	}
 	//fmt.Println(getIp())
 }
 
 func getIp() string {
-	result, err := Command("ip addr |grep 172")
+	result, _ := Command("ip addr |grep 174")
 	//test
 	//result, err := Command("cat 1.txt")
-	if err != nil {
-		return string("error:")
-		fmt.Println(err)
-	}
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return string("error:")
+
+	//}
 	//cores, err := strconv.Atoi(strings.Trim(result, "\r\n"))
 	//if err != nil {
 	//	return 0, err
@@ -56,4 +59,6 @@ func Command(cmd string) (string, error) {
 func restart() {
 	Command("systemctl restart keepalived")
 	fmt.Println("restart keepalived")
+	fmt.Println(time.Now())
+
 }
