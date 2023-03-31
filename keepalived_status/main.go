@@ -60,5 +60,6 @@ func restart() {
 	Command("systemctl restart keepalived")
 	fmt.Println("restart keepalived")
 	fmt.Println(time.Now())
+	time.Sleep(50000 * time.Millisecond)
 
 }
