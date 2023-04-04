@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"fmt"
+	"log"
 	"os/exec"
 	"time"
 )
@@ -17,8 +17,9 @@ func main() {
 			//test
 			//fmt.Println("reatrt")
 		}
-		fmt.Println(time.Now())
-		fmt.Println("已完成检测", a)
+		//fmt.Println(time.Now())
+		//fmt.Println("已完成检测", a)
+		log.Printf("已完成检测，检测结果： %s", a)
 		time.Sleep(500000 * time.Millisecond)
 
 	}
@@ -58,8 +59,8 @@ func Command(cmd string) (string, error) {
 
 func restart() {
 	Command("systemctl restart keepalived")
-	fmt.Println("restart keepalived")
-	fmt.Println(time.Now())
+	//fmt.Println("restart keepalived")
+	log.Printf("restrat keepalived")
 	time.Sleep(50000 * time.Millisecond)
 
 }
