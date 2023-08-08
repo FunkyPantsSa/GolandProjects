@@ -4,7 +4,8 @@ import (
 	"fmt"
 )
 
-var number = []int{2, 4, 11, 3}
+var number = []int{2, 6, 11, 4}
+var number2 bool = false
 
 func main() {
 	//result =
@@ -18,8 +19,11 @@ func twoSum(nums []int, target int) []int {
 	var k = []int{}
 	for i := 0; i < len(nums); i++ {
 		//arrHaiCoder[i]
+		if number2 == true {
+			break
+		}
 		//println(i)
-		for j := 0; j < len(nums)-1; j++ {
+		for j := 0; j < len(nums); j++ {
 			if j == i {
 				j++
 			}
@@ -27,10 +31,10 @@ func twoSum(nums []int, target int) []int {
 			if nums[i]+nums[j] == target {
 				//result :=[i,j]
 				d = j
-				//println(j)
+				//println("j=", j)
 				c = i
 				k = []int{c, d}
-				break
+				number2 = true
 
 			}
 			//log.Printf("没有发现")
