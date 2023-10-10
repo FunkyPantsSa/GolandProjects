@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/tidwall/gjson"
 	"io/ioutil"
 	"net/http"
 )
@@ -99,7 +100,7 @@ func jsonToData(body string) (data string) {
 		panic(err)
 	}
 
-	//data := gjson.Get(content, "Message").Array()[2]
+	data := gjson.Get(content, "Message").Array()[2]
 	return data
 
 }
