@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/yalp/jsonpath/api2d"
 	"log"
 	"net/http"
@@ -16,7 +17,7 @@ type ResponseBody struct {
 
 func main() {
 	http.HandleFunc("/", handleRequest)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
@@ -35,9 +36,11 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	//responseBody := ResponseBody{
 	//	Result: requestBody.Variable,
 	//}
-	var token = `fk196722`
+
+	var token = `fk196722-n72X69qLYXDwwlLlWVYykenXKMSkRiqo`
 	var answer = requestBody.Variable
 	var response = api2d.Api2d(token, answer)
+	fmt.Println(response)
 	byteData := []byte(response)
 
 	//response, err := json.Marshal(responseBody)
@@ -47,6 +50,9 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	//}
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
 	w.Write(byteData)
 
 }
