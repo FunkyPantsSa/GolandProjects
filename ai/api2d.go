@@ -100,7 +100,7 @@ func jsonToData(body string) (data string) {
 		panic(err)
 	}
 
-	data := gjson.Get(content, "Message").Array()[2]
+	data := gjson.Get(body, "Message").Array()[2]
 	return data
 
 }
