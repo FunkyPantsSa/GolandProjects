@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能助手</title>
+    <style>
+        html body{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            background: url('./bg.jpg') no-repeat;
+            background-size: 100% 100%;
+        }
+        .AiChat_Wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            width: 55vw;
+            height: 50vh;
+        }
+        .Talk_Box{
+            width: calc(100% - 20px);
+            height: calc(100% - 90px);
+            padding: 10px;
+            display: flex;
+        }
+
+        .Talk_Content{
+            width: calc(100% - 40px);   
+            height: calc(100% - 40px);
+            border-radius: 5px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: rgba(92, 152, 202, 0.897)
+            
+        }
+
+        .content{
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            width: calc(100% - 10px);
+            height: calc(50% - 25px);
+            border: 1px solid #409eff;
+            background: rgba(255, 255, 255, 0.61);
+            padding: 5px;
+            font-weight: 600;
+        }
+
+
+        .input_Box{
+            width: calc(100% - 20px);
+            height: 60px;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .input_con {
+            width: calc(100% - 100px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .send_btn {
+            padding: 16px 18px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="AiChat_Wrap">
+        <div class="Talk_Box">
+            <div class="Talk_Content">
+                <div class="content content_right">
+                    <span id="askbox"></span>
+                </div>
+                <div class="content content_left">
+                    <span id="resultbox"></span>
+                </div>
+            </div>
+        </div>
+        <div class="input_Box">
+            <textarea class="input_con" id="input-view"  placeholder="请输入内容"></textarea>
+            <button class="send_btn"  onclick="handleButtonClick()">发送</button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('input-view').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                handleButtonClick()
+            }
+        });
+        function handleButtonClick() {
+            const inputBox = document.getElementById('input-view');
+            const value = inputBox.value;
+            if (value) {
+                const output = document.getElementById('askbox');
+                output.textContent = '_ '+inputBox.value;
+                let obj={
+                    Variable:inputBox.value
+                }
+                inputBox.value = '';
+                let xhr = new XMLHttpRequest()
+                xhr.open('POST', 'http://127.0.0.1:8081/', true)
+                xhr.setRequestHeader("Content-type","application/json")
+                xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+                xhr.send(JSON.stringify(obj))
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {//验证请求是否发送成功
+                        var json = xhr.responseText;//获取到服务端返回的数据
+                        console.log(json);
+                    }
+                }
+                xhr.onerror = function (error) {
+                    alert('请求出错!',error);
+                };
+            } 
+            else {
+                alert('请输入内容!');
+            }
+        }
+    </script>
+</body>
+</html>
