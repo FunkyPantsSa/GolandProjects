@@ -16,7 +16,7 @@ type ResponseBody struct {
 }
 
 func main() {
-	http.HandleFunc("/", handleRequest)
+	http.HandleFunc("/ai", handleRequest)
 	log.Fatal(http.ListenAndServe(":8081", nil))
 }
 func handleRequest(w http.ResponseWriter, r *http.Request) {
