@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/yalp/jsonpath/api2d"
+	"github.com/yalp/jsonpath/linkai"
 	"log"
 	"net/http"
 )
@@ -37,9 +37,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	//	Result: requestBody.Variable,
 	//}
 
-	var token = `fk196722-n72X69qLYXDwwlLlWVYykenXKMSkRiqo`
+	//var token = `Link_RhEfGRxJi9Tvq1XKbEV8c2yvil4nbaDpwhII4FxecE`
+	//var token = `api2d_token`
 	var answer = requestBody.Variable
-	var response = api2d.Api2d(token, answer)
+	var token = requestBody.token
+	var response = linkai.LinkAiJsonToData(linkai.Linkai(token, answer))
+
+	//var response = api2d.Api2d(token, answer)
 	fmt.Println(response)
 	byteData := []byte(response)
 
