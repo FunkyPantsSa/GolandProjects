@@ -41,19 +41,32 @@ func main() {
 	//buyTicket.SelfChoice2()
 	fmt.Println("欢迎购彩")
 	var a int
+	var userTicket map[int]any
+	fmt.Println("--------------------")
+	//printArr(CreateTicket())
 LOOP:
 	fmt.Println("选择购彩方式1.机选 2.自选")
 	fmt.Scanf("%d", &a)
 	if a == 2 {
-		v := buyTicket.SelfChoice2()
+		//自己输入想要的数字
+		userTicketBySelf := buyTicket.SelfChoice2()
+		userTicket = userTicketBySelf
 		//fmt.Println(len(v))
-		fmt.Println(v[1])
+		//fmt.Println(userTicketBySelf)
 	} else if a == 1 {
-		k := createTicket.CreateTicket()
-		fmt.Println(k)
+		//由机器随机生成数字
+		userTicketByMachine := createTicket.CreateTicketMore()
+		//fmt.Println(userTicketByMachine)
+		userTicket = userTicketByMachine
 	} else {
 		fmt.Println("输入错误，请重新输入。")
 		goto LOOP
 	}
+
+	fmt.Println("--------------------")
+	//printArr(CreateTicket())
+	fmt.Println("选择是:", userTicket)
+	fmt.Println("--------------------")
+	//printArr(CreateTicket())
 
 }
