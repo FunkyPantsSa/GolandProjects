@@ -2,6 +2,7 @@ package main
 
 import (
 	"Lottery/buyTicket"
+	"Lottery/contrastTicket"
 	"Lottery/createTicket"
 	"fmt"
 )
@@ -65,8 +66,39 @@ LOOP:
 
 	fmt.Println("--------------------")
 	//printArr(CreateTicket())
-	fmt.Println("选择是:", userTicket)
+	//fmt.Println("选择是:", userTicket)
+	for i := 0; i < len(userTicket); i++ {
+		fmt.Println("您的彩票是")
+		fmt.Println(contrastTicket.CutManyTicket(contrastTicket.MapToArr(userTicket[i])))
+		//contrastTicket.MapToArr(userTicket)
+		//printArr(userTicket[i])
+
+	}
+
 	fmt.Println("--------------------")
 	//printArr(CreateTicket())
+	//time.Sleep(time.Second * 5)
+	fmt.Println("开奖啦！！！！！")
+	fmt.Println("--------------------")
 
+	vtory := createTicket.CreateTicket()
+	fmt.Println("中奖号码是：", vtory)
+
+	fmt.Println("--------------------")
+	_, m := contrastTicket.ConTrastMore(userTicket, vtory)
+	//for i := 0; i < len(userTicket); i++ {
+	if m != nil {
+		fmt.Println("恭喜你中奖了，中奖号码是：", m)
+		contrastTicket.PrizeLevel(m, vtory)
+	} else {
+		fmt.Println("很遗憾你没有中奖。")
+		fmt.Println("--------------------")
+
+	}
+
+	//fmt.Println(contrastTicket.CutManyTicket(contrastTicket.MapToArr(userTicket[i])))
+	//contrastTicket.MapToArr(userTicket)
+	//printArr(userTicket[i])
+
+	//}
 }

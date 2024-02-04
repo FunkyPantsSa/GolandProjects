@@ -1,6 +1,6 @@
 package contrastTicket
 
-func PrizeLevel(a [5]int, b [5]int) string {
+func PrizeLevel(a []int, b [5]int) string {
 	var prizeLevel string
 	var j int = 0
 	// 假设这里有一些逻辑来决定奖级
